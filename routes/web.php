@@ -15,7 +15,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-
 $router->post('transaction', ['as' => 'transaction', function () {
     return response()->json(['created' => true]);
 }]);
