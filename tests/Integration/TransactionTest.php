@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 class TransactionTest extends TestCase
 {
-    public function testTransaction()
+    public function testTransaction(): void
     {
         $data = [
             'value' => 100.00,
