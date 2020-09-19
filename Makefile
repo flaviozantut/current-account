@@ -28,4 +28,4 @@ style-fix: up
 ############# phpstan analyse ################################
 .PHONY: phpstan-analyse
 phpstan-analyse: up
-	docker-compose exec app vendor/bin/phpstan analyse -l 8 --configuration .phpstan-baseline.neon  app tests
+	docker-compose exec app vendor/bin/phpstan analyse -l 5 --configuration .phpstan-baseline.neon  app tests
