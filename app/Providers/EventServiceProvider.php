@@ -9,11 +9,11 @@ class EventServiceProvider extends ServiceProvider
     /**
      * The event listener mappings for the application.
      *
-     * @var array<string, array<int, string>>
+     * @var array
      */
     protected $listen = [
-        \App\Events\ExampleEvent::class => [
-            \App\Listeners\ExampleListener::class,
+        \App\Events\Transaction::class => [
+            \App\Listeners\Transaction::class,
         ],
     ];
 }

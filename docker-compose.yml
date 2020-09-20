@@ -14,6 +14,8 @@ services:
 
     ####  Nginx
     web:
+        depends_on:
+            - db
         build:
             context: ./
             dockerfile: docker/nginx/Dockerfile
@@ -30,15 +32,18 @@ services:
             - "80:80"
     ### Database
     db:
-        image: mysql:8
+        image: mysql:5.7
         restart: always
         volumes:
             - db_data:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_ROOT_USER: root
+            MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: current-account
             MYSQL_USER: current-account
             MYSQL_PASSWORD: secret
+        ports:
+            - "3306:3306"
 
 volumes:
     db_data: {}

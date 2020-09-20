@@ -14,7 +14,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that should not be reported.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $dontReport = [
         AuthorizationException::class,
@@ -48,6 +48,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        return parent::render($request, $exception);
+        $rendered = parent::render($request, $exception);
+
+        $statusCode = $rendered->getStatusCode();
+
+        if ($exception instanceof Exception) {
+            $statusCode = $exception->getStatusCode();
+        }
+
+        return response()->json([
+            'error' => [
+                'code' => $statusCode,
+                'message' => $exception->getMessage(),
+            ],
+        ], $statusCode);
     }
 }

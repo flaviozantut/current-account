@@ -15,8 +15,8 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('payer_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('payee_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('payer_id')->constrained('users');
+            $table->foreignId('payee_id')->constrained('users');
             $table->float('value', 16, 2);
             $table->timestamp('created_at')->nullable();
         });

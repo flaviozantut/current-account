@@ -10,9 +10,18 @@ build:
 install: up
 	docker-compose exec app composer install
 
+############# Tests ################################
 .PHONY: test
 test: up
 	docker-compose exec app vendor/bin/phpunit
+
+.PHONY: integration-test
+integration-test: up
+	docker-compose exec app vendor/bin/phpunit --filter="Integration"
+
+.PHONY: unit-test
+unit-test: up
+	docker-compose exec app vendor/bin/phpunit --filter="Unit"
 
 
 ############# Code style ################################
