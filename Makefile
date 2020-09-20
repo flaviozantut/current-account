@@ -38,3 +38,9 @@ style-fix: up
 .PHONY: phpstan-analyse
 phpstan-analyse: up
 	docker-compose exec app vendor/bin/phpstan analyse -l 5 --configuration .phpstan-baseline.neon  app tests
+
+
+######### Heroku deploy ################
+.PHONY: deploy-hk
+deploy-hk:
+	git push heroku master
