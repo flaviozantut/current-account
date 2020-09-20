@@ -3,11 +3,10 @@
 namespace Tests\Unit\Services;
 
 use App\Models\User as UserModel;
-use App\Repositories\User as UserRepo;
-
-use App\Services\Wallet as WalletService;
 use App\Models\Wallet as WalletModel;
+use App\Repositories\User as UserRepo;
 use App\Services\User;
+use App\Services\Wallet as WalletService;
 use Mockery;
 use Tests\TestCase;
 
