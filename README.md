@@ -1,7 +1,29 @@
 [![current-account](https://circleci.com/gh/flaviozantut/current-account.svg?style=svg)](https://circleci.com/gh/flaviozantut/current-account)
 
-# Debugging
 
-## Send custom Request Uuid
+## Conta corrente
 
-    curl -H "X-Request-Uuid-Trace: ff43f444-81fb-4c69-3044-6cd74272a311" -s -I -X POST http://localhost
+
+### Pré requisitos
+
+Docker version 19.03.12
+
+Docker-compose version 1.26.2
+
+
+
+[Documentação](docs/)
+
+
+
+### Execução
+
+    make install
+    make migrate
+
+
+### Testes
+
+    make test
+    make unit-test
+    make integration-test

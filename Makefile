@@ -10,6 +10,10 @@ build:
 install: up
 	docker-compose exec app composer install
 
+.PHONY: migrate
+install: up
+	docker-compose exec app php artisan  migrate
+
 ############# Tests ################################
 .PHONY: test
 test: up

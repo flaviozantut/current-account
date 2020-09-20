@@ -1,2 +1,2 @@
-web: web: vendor/bin/heroku-php-nginx public/
+web: vendor/bin/heroku-php-apache2 public/
 worker:  php artisan queue:listen --tries=10 --timeout=5
