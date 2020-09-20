@@ -4,7 +4,7 @@
 ## Modelo Er
 
 
-[Database](https://github.com/flaviozantut/current-account/raw/master/docs/database.png)
+![Database](https://github.com/flaviozantut/current-account/raw/master/docs/database.png)
 
 
 ### [Insomnia](https://insomnia.rest/download) workspace
