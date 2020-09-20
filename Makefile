@@ -11,7 +11,7 @@ install: up
 	docker-compose exec app composer install
 
 .PHONY: migrate
-install: up
+migrate: up
 	docker-compose exec app php artisan  migrate
 
 ############# Tests ################################
