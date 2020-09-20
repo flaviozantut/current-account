@@ -11,6 +11,7 @@ use App\Repositories\Transaction as TransactionRepo;
 use App\Repositories\Wallet as WalletRepo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
 
 class Wallet extends Service
 {
@@ -56,7 +57,7 @@ class Wallet extends Service
 
             $transaction->setRelation('payer', $payer);
             $transaction->setRelation('payee', $payee);
-
+            Log::info('TRANSACTION_CREATED', [$transaction->toArray()]);
             Event::dispatch(new TransactionEvent($transaction));
 
             return $transaction;
