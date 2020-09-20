@@ -1,8 +1,4 @@
-
-
-
-
-
+[![current-account](https://circleci.com/gh/flaviozantut/current-account.svg?style=svg)](https://circleci.com/gh/flaviozantut/current-account)
 
 # Debugging
 
