@@ -15,6 +15,10 @@ use App\Services\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+$router->get('ping', ['as' => 'health_check', function () {
+    return response('pong');
+}]);
+
 $router->post('transaction', ['as' => 'wallet.transaction', function (Wallet $wallet, User $user, Request $request) {
     $payer = $user->find($request->input('payer'));
     $payee = $user->find($request->input('payee'));

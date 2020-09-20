@@ -4,6 +4,7 @@ services:
     app:
         depends_on:
             - db
+            - queue
         build:
             context: ./
             dockerfile: docker/app/Dockerfile
@@ -15,7 +16,7 @@ services:
     ####  Nginx
     web:
         depends_on:
-            - db
+            - app
         build:
             context: ./
             dockerfile: docker/nginx/Dockerfile
@@ -30,6 +31,7 @@ services:
             - app
         ports:
             - "80:80"
+
     ### Database
     db:
         image: mysql:5.7
@@ -45,5 +47,28 @@ services:
         ports:
             - "3306:3306"
 
+    worker:
+        depends_on:
+            - db
+            - queue
+        build:
+            context: ./
+            dockerfile: docker/app/Dockerfile
+        working_dir: /app
+        restart: always
+        volumes:
+            - ./:/app
+        command: php artisan queue:listen --tries=10 --timeout=5
+
+    ## Redis queue
+    queue:
+        image: redis:6.0
+        restart: always
+        volumes:
+            - queue_data:/var/lib/redis
+        ports:
+            - "6379:6379"
+
 volumes:
     db_data: {}
+    queue_data: {}
