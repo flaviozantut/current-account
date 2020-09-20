@@ -1,0 +1,66 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # Specify the version you desire here
+      - image: php:7.4-fpm
+        environment:
+          APP_ENV: local
+          APP_DEBUG: true
+          APP_KEY: kjcndjjksddwdwdw
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: testdb
+          DB_USERNAME: root
+          DB_PASSWORD: password
+          CACHE_DRIVER: array
+          QUEUE_DRIVER: sync
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # Using the RAM variation mitigates I/O contenWxtion
+      # for database intensive operations.
+      - image: circleci/mysql:5.7-ram
+        environment:
+          MYSQL_DATABASE: testdb
+          MYSQL_ROOT_PASSWORD: password
+      #
+      # - image: redis:2.8.19
+
+    steps:
+      - checkout
+
+      - run: apt-get update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+      - run: apt-get install -y git
+      - run: apt-get install -y libzip-dev
+      - run: docker-php-ext-install pdo_mysql zip
+      - run: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+      - run: php composer-setup.php
+      - run: php -r "unlink('composer-setup.php');"
+      - run: mv composer.phar /usr/local/bin/composer
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            # "composer.lock" can be used if it is committed to the repo
+            - v1-dependencies-{{ checksum "composer.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: composer install -n --prefer-dist
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+
+      # run tests with phpunit or codecept
+      - run: ./vendor/bin/phpunit
+      - run: ./vendor/bin/php-cs-fixer fix --dry-run --verbose --diff
+      - run: ./vendor/bin/phpstan analyse -l 5 --configuration .phpstan-baseline.neon  app tests
