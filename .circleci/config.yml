@@ -39,6 +39,8 @@ jobs:
       - run: apt-get update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
       - run: apt-get install -y git
       - run: apt-get install -y libzip-dev
+      - run: pecl install -o -f redis-5.3.1
+      - run: docker-php-ext-enable redis
       - run: docker-php-ext-install pdo_mysql zip
       - run: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
       - run: php composer-setup.php
