@@ -63,4 +63,4 @@ jobs:
       # run tests with phpunit or codecept
       - run: ./vendor/bin/phpunit
       - run: ./vendor/bin/php-cs-fixer fix --dry-run --verbose --diff
-      - run: ./vendor/bin/phpstan analyse -l 5 --configuration .phpstan-baseline.neon  app tests
+      - run: php -d memory_limit=512M ./vendor/bin/phpstan analyse -l 5 --configuration .phpstan-baseline.neon  app tests
